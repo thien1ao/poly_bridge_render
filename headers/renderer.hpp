@@ -28,7 +28,7 @@ private:
   VkInstance instance_ = VK_NULL_HANDLE;
   VkSurfaceKHR surface_ = VK_NULL_HANDLE;
 
-  VkPhysicalDevice physicalDevice_ = VK_NULL_HANDLE;
+  VkPhysicalDevice physicalDevice_ = VK_NULL_HANDLE; // GPU placeholder
   VkDevice device_ = VK_NULL_HANDLE;
 
   VkQueue graphicalQueue_ = VK_NULL_HANDLE;
