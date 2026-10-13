@@ -1,0 +1,1 @@
+/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/my_engine.dir/link.d CMakeFiles/my_engine.dir/src/main.cpp.o CMakeFiles/my_engine.dir/src/sphere.cpp.o CMakeFiles/my_engine.dir/src/renderer.cpp.o -o my_engine  -Wl,-rpath,/usr/local/lib /usr/local/lib/libglfw3.a /usr/local/lib/libvulkan.so /usr/lib/librt.a -lm -ldl
