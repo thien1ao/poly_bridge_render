@@ -7,17 +7,16 @@ struct Mesh;
 
 class Renderer {
 public:
-  Renderer() = default;
+  Renderer() = default; // in .cpp Renderer renderer
   ~Renderer();
 
-  // Renderer a
-  // a.init(window)
-  // Renderer b = a
-  // compilation error > runtime error
-  Renderer(const Renderer&) = delete;
-  Renderer& operator = (const Renderer&) = delete;
+  Renderer(const Renderer&) = delete; // disable copy constructor
+  Renderer& operator = (const Renderer&) = delete; // disable assiging constructor
+  // Renderer first: OK
+  // Renderer second(first): copy constructor disabled
+  // Renderer third: OK
+  // third = first: assign constructor disabled
 
-  // incapsulate main pipeline
   void init(GLFWwindow* window);
   void uploadMesh(const Mesh& mesh);
   void drawFrame();
@@ -42,6 +41,7 @@ private:
   void createSurface();
   void pickPhysicalDevice();
   void createLogicalDevice();
+  void createSwapchain();
 };
 
 

@@ -1,4 +1,6 @@
 #include "../headers/renderer.hpp"
+#include "../headers/swapchain.hpp"
+#include "../headers/vk_check.hpp"
 
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
@@ -6,20 +8,15 @@
 #include <stdexcept>
 #include <string>
 #include <optional>
-#include <vector>
 
 namespace {
 
-void checkVk(VkResult result, const char* operation)
-{
-  if (result != VK_SUCCESS) {
-    throw std::runtime_error(
-        std::string(operation) +
-        " failed, VkResult = " +
-        std::to_string(static_cast<int>(result))
-        );
-  }
-}
+// each queue Family can be described hwith a struct
+// QueueFamilyProperties:
+// VK_QUEUE_GRAPHICS_BIT = 0x01;
+// VK_QUEUE_PRESENT_BIT = 0x02;
+// VK_QUEUE_COMPUTE_BIT = 0x03;
+// VK_QUEUE_TRANSFER_BIT = 0x04;
 
 struct QueueFamily {
   std::optional<uint32_t> graphics;
@@ -27,8 +24,7 @@ struct QueueFamily {
   bool complete() const { return graphics && present; }
 };
 
-// graphics queus are supported in 10 cases meanwhile present queues may not be supported
-QueueFamily findQueueFamily(pickPhysicalDevice device, VkSurfaceKHR surface)
+QueueFamily findQueueFamily(VkPhysicalDevice device, VkSurfaceKHR surface)
 {
   QueueFamily ans;
 
@@ -41,13 +37,14 @@ QueueFamily findQueueFamily(pickPhysicalDevice device, VkSurfaceKHR surface)
     if (families[i].queueFlags & VK_QUEUE_GRAPHICS_BIT) {
       ans.graphics = i;
     }
-
     VkBool32 presentSupport = VK_FALSE;
-    vkGetPhysicalDeviceSurfaceSupportKHR(device, i
+    vkGetPhysicalDeviceSurfaceSupportKHR(device, i, surface, &presentSupport);
+    if (presentSupport) { ans.present = i; }
 
+    if (ans.complete()) { break; }
+  }
 
-
-
+  return ans;
 }
 
 }
