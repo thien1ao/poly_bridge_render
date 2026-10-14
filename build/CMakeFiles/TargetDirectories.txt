@@ -1,3 +1,4 @@
 /home/thienlao/development/vulkan_development/build/CMakeFiles/my_engine.dir
+/home/thienlao/development/vulkan_development/build/CMakeFiles/shaders.dir
 /home/thienlao/development/vulkan_development/build/CMakeFiles/edit_cache.dir
 /home/thienlao/development/vulkan_development/build/CMakeFiles/rebuild_cache.dir

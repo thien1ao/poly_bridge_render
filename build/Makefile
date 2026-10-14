@@ -129,6 +129,67 @@ my_engine/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_engine.dir/build.make CMakeFiles/my_engine.dir/build
 .PHONY : my_engine/fast
 
+#=============================================================================
+# Target rules for targets named shaders
+
+# Build rule for target.
+shaders: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 shaders
+.PHONY : shaders
+
+# fast build rule for target.
+shaders/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/shaders.dir/build.make CMakeFiles/shaders.dir/build
+.PHONY : shaders/fast
+
+src/box.o: src/box.cpp.o
+.PHONY : src/box.o
+
+# target to build an object file
+src/box.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_engine.dir/build.make CMakeFiles/my_engine.dir/src/box.cpp.o
+.PHONY : src/box.cpp.o
+
+src/box.i: src/box.cpp.i
+.PHONY : src/box.i
+
+# target to preprocess a source file
+src/box.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_engine.dir/build.make CMakeFiles/my_engine.dir/src/box.cpp.i
+.PHONY : src/box.cpp.i
+
+src/box.s: src/box.cpp.s
+.PHONY : src/box.s
+
+# target to generate assembly for a file
+src/box.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_engine.dir/build.make CMakeFiles/my_engine.dir/src/box.cpp.s
+.PHONY : src/box.cpp.s
+
+src/device.o: src/device.cpp.o
+.PHONY : src/device.o
+
+# target to build an object file
+src/device.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_engine.dir/build.make CMakeFiles/my_engine.dir/src/device.cpp.o
+.PHONY : src/device.cpp.o
+
+src/device.i: src/device.cpp.i
+.PHONY : src/device.i
+
+# target to preprocess a source file
+src/device.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_engine.dir/build.make CMakeFiles/my_engine.dir/src/device.cpp.i
+.PHONY : src/device.cpp.i
+
+src/device.s: src/device.cpp.s
+.PHONY : src/device.s
+
+# target to generate assembly for a file
+src/device.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_engine.dir/build.make CMakeFiles/my_engine.dir/src/device.cpp.s
+.PHONY : src/device.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -201,6 +262,54 @@ src/sphere.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_engine.dir/build.make CMakeFiles/my_engine.dir/src/sphere.cpp.s
 .PHONY : src/sphere.cpp.s
 
+src/swapchain.o: src/swapchain.cpp.o
+.PHONY : src/swapchain.o
+
+# target to build an object file
+src/swapchain.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_engine.dir/build.make CMakeFiles/my_engine.dir/src/swapchain.cpp.o
+.PHONY : src/swapchain.cpp.o
+
+src/swapchain.i: src/swapchain.cpp.i
+.PHONY : src/swapchain.i
+
+# target to preprocess a source file
+src/swapchain.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_engine.dir/build.make CMakeFiles/my_engine.dir/src/swapchain.cpp.i
+.PHONY : src/swapchain.cpp.i
+
+src/swapchain.s: src/swapchain.cpp.s
+.PHONY : src/swapchain.s
+
+# target to generate assembly for a file
+src/swapchain.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_engine.dir/build.make CMakeFiles/my_engine.dir/src/swapchain.cpp.s
+.PHONY : src/swapchain.cpp.s
+
+src/window.o: src/window.cpp.o
+.PHONY : src/window.o
+
+# target to build an object file
+src/window.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_engine.dir/build.make CMakeFiles/my_engine.dir/src/window.cpp.o
+.PHONY : src/window.cpp.o
+
+src/window.i: src/window.cpp.i
+.PHONY : src/window.i
+
+# target to preprocess a source file
+src/window.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_engine.dir/build.make CMakeFiles/my_engine.dir/src/window.cpp.i
+.PHONY : src/window.cpp.i
+
+src/window.s: src/window.cpp.s
+.PHONY : src/window.s
+
+# target to generate assembly for a file
+src/window.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_engine.dir/build.make CMakeFiles/my_engine.dir/src/window.cpp.s
+.PHONY : src/window.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -209,7 +318,14 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... shaders"
 	@echo "... my_engine"
+	@echo "... src/box.o"
+	@echo "... src/box.i"
+	@echo "... src/box.s"
+	@echo "... src/device.o"
+	@echo "... src/device.i"
+	@echo "... src/device.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
@@ -219,6 +335,12 @@ help:
 	@echo "... src/sphere.o"
 	@echo "... src/sphere.i"
 	@echo "... src/sphere.s"
+	@echo "... src/swapchain.o"
+	@echo "... src/swapchain.i"
+	@echo "... src/swapchain.s"
+	@echo "... src/window.o"
+	@echo "... src/window.i"
+	@echo "... src/window.s"
 .PHONY : help
 
 

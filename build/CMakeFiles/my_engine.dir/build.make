@@ -86,10 +86,52 @@ CMakeFiles/my_engine.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/my_engine.dir/src/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/thienlao/development/vulkan_development/src/main.cpp -o CMakeFiles/my_engine.dir/src/main.cpp.s
 
+CMakeFiles/my_engine.dir/src/window.cpp.o: CMakeFiles/my_engine.dir/flags.make
+CMakeFiles/my_engine.dir/src/window.cpp.o: /home/thienlao/development/vulkan_development/src/window.cpp
+CMakeFiles/my_engine.dir/src/window.cpp.o: CMakeFiles/my_engine.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/thienlao/development/vulkan_development/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/my_engine.dir/src/window.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_engine.dir/src/window.cpp.o -MF CMakeFiles/my_engine.dir/src/window.cpp.o.d -o CMakeFiles/my_engine.dir/src/window.cpp.o -c /home/thienlao/development/vulkan_development/src/window.cpp
+
+CMakeFiles/my_engine.dir/src/window.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/my_engine.dir/src/window.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/thienlao/development/vulkan_development/src/window.cpp > CMakeFiles/my_engine.dir/src/window.cpp.i
+
+CMakeFiles/my_engine.dir/src/window.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/my_engine.dir/src/window.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/thienlao/development/vulkan_development/src/window.cpp -o CMakeFiles/my_engine.dir/src/window.cpp.s
+
+CMakeFiles/my_engine.dir/src/device.cpp.o: CMakeFiles/my_engine.dir/flags.make
+CMakeFiles/my_engine.dir/src/device.cpp.o: /home/thienlao/development/vulkan_development/src/device.cpp
+CMakeFiles/my_engine.dir/src/device.cpp.o: CMakeFiles/my_engine.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/thienlao/development/vulkan_development/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/my_engine.dir/src/device.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_engine.dir/src/device.cpp.o -MF CMakeFiles/my_engine.dir/src/device.cpp.o.d -o CMakeFiles/my_engine.dir/src/device.cpp.o -c /home/thienlao/development/vulkan_development/src/device.cpp
+
+CMakeFiles/my_engine.dir/src/device.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/my_engine.dir/src/device.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/thienlao/development/vulkan_development/src/device.cpp > CMakeFiles/my_engine.dir/src/device.cpp.i
+
+CMakeFiles/my_engine.dir/src/device.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/my_engine.dir/src/device.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/thienlao/development/vulkan_development/src/device.cpp -o CMakeFiles/my_engine.dir/src/device.cpp.s
+
+CMakeFiles/my_engine.dir/src/swapchain.cpp.o: CMakeFiles/my_engine.dir/flags.make
+CMakeFiles/my_engine.dir/src/swapchain.cpp.o: /home/thienlao/development/vulkan_development/src/swapchain.cpp
+CMakeFiles/my_engine.dir/src/swapchain.cpp.o: CMakeFiles/my_engine.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/thienlao/development/vulkan_development/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/my_engine.dir/src/swapchain.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_engine.dir/src/swapchain.cpp.o -MF CMakeFiles/my_engine.dir/src/swapchain.cpp.o.d -o CMakeFiles/my_engine.dir/src/swapchain.cpp.o -c /home/thienlao/development/vulkan_development/src/swapchain.cpp
+
+CMakeFiles/my_engine.dir/src/swapchain.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/my_engine.dir/src/swapchain.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/thienlao/development/vulkan_development/src/swapchain.cpp > CMakeFiles/my_engine.dir/src/swapchain.cpp.i
+
+CMakeFiles/my_engine.dir/src/swapchain.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/my_engine.dir/src/swapchain.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/thienlao/development/vulkan_development/src/swapchain.cpp -o CMakeFiles/my_engine.dir/src/swapchain.cpp.s
+
 CMakeFiles/my_engine.dir/src/sphere.cpp.o: CMakeFiles/my_engine.dir/flags.make
 CMakeFiles/my_engine.dir/src/sphere.cpp.o: /home/thienlao/development/vulkan_development/src/sphere.cpp
 CMakeFiles/my_engine.dir/src/sphere.cpp.o: CMakeFiles/my_engine.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/thienlao/development/vulkan_development/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/my_engine.dir/src/sphere.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/thienlao/development/vulkan_development/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/my_engine.dir/src/sphere.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_engine.dir/src/sphere.cpp.o -MF CMakeFiles/my_engine.dir/src/sphere.cpp.o.d -o CMakeFiles/my_engine.dir/src/sphere.cpp.o -c /home/thienlao/development/vulkan_development/src/sphere.cpp
 
 CMakeFiles/my_engine.dir/src/sphere.cpp.i: cmake_force
@@ -100,10 +142,24 @@ CMakeFiles/my_engine.dir/src/sphere.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/my_engine.dir/src/sphere.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/thienlao/development/vulkan_development/src/sphere.cpp -o CMakeFiles/my_engine.dir/src/sphere.cpp.s
 
+CMakeFiles/my_engine.dir/src/box.cpp.o: CMakeFiles/my_engine.dir/flags.make
+CMakeFiles/my_engine.dir/src/box.cpp.o: /home/thienlao/development/vulkan_development/src/box.cpp
+CMakeFiles/my_engine.dir/src/box.cpp.o: CMakeFiles/my_engine.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/thienlao/development/vulkan_development/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/my_engine.dir/src/box.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_engine.dir/src/box.cpp.o -MF CMakeFiles/my_engine.dir/src/box.cpp.o.d -o CMakeFiles/my_engine.dir/src/box.cpp.o -c /home/thienlao/development/vulkan_development/src/box.cpp
+
+CMakeFiles/my_engine.dir/src/box.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/my_engine.dir/src/box.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/thienlao/development/vulkan_development/src/box.cpp > CMakeFiles/my_engine.dir/src/box.cpp.i
+
+CMakeFiles/my_engine.dir/src/box.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/my_engine.dir/src/box.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/thienlao/development/vulkan_development/src/box.cpp -o CMakeFiles/my_engine.dir/src/box.cpp.s
+
 CMakeFiles/my_engine.dir/src/renderer.cpp.o: CMakeFiles/my_engine.dir/flags.make
 CMakeFiles/my_engine.dir/src/renderer.cpp.o: /home/thienlao/development/vulkan_development/src/renderer.cpp
 CMakeFiles/my_engine.dir/src/renderer.cpp.o: CMakeFiles/my_engine.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/thienlao/development/vulkan_development/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/my_engine.dir/src/renderer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/thienlao/development/vulkan_development/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/my_engine.dir/src/renderer.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_engine.dir/src/renderer.cpp.o -MF CMakeFiles/my_engine.dir/src/renderer.cpp.o.d -o CMakeFiles/my_engine.dir/src/renderer.cpp.o -c /home/thienlao/development/vulkan_development/src/renderer.cpp
 
 CMakeFiles/my_engine.dir/src/renderer.cpp.i: cmake_force
@@ -117,14 +173,22 @@ CMakeFiles/my_engine.dir/src/renderer.cpp.s: cmake_force
 # Object files for target my_engine
 my_engine_OBJECTS = \
 "CMakeFiles/my_engine.dir/src/main.cpp.o" \
+"CMakeFiles/my_engine.dir/src/window.cpp.o" \
+"CMakeFiles/my_engine.dir/src/device.cpp.o" \
+"CMakeFiles/my_engine.dir/src/swapchain.cpp.o" \
 "CMakeFiles/my_engine.dir/src/sphere.cpp.o" \
+"CMakeFiles/my_engine.dir/src/box.cpp.o" \
 "CMakeFiles/my_engine.dir/src/renderer.cpp.o"
 
 # External object files for target my_engine
 my_engine_EXTERNAL_OBJECTS =
 
 my_engine: CMakeFiles/my_engine.dir/src/main.cpp.o
+my_engine: CMakeFiles/my_engine.dir/src/window.cpp.o
+my_engine: CMakeFiles/my_engine.dir/src/device.cpp.o
+my_engine: CMakeFiles/my_engine.dir/src/swapchain.cpp.o
 my_engine: CMakeFiles/my_engine.dir/src/sphere.cpp.o
+my_engine: CMakeFiles/my_engine.dir/src/box.cpp.o
 my_engine: CMakeFiles/my_engine.dir/src/renderer.cpp.o
 my_engine: CMakeFiles/my_engine.dir/build.make
 my_engine: CMakeFiles/my_engine.dir/compiler_depend.ts
@@ -133,7 +197,7 @@ my_engine: /usr/local/lib/libvulkan.so
 my_engine: /usr/lib/librt.a
 my_engine: /usr/lib/libm.so
 my_engine: CMakeFiles/my_engine.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/thienlao/development/vulkan_development/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable my_engine"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/thienlao/development/vulkan_development/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable my_engine"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/my_engine.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

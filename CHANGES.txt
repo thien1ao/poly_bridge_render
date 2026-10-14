@@ -1,0 +1,213 @@
+CHANGES - Vulkan sphere renderer
+================================
+
+Build & run:
+  cmake -S . -B build && cmake --build build && ./build/my_engine
+
+
+PART 1 - BUILD FIXES
+--------------------
+
+CMakeLists.txt
+  - Replaced target_compile_features(... GLM_FORCE_DEPTH_ZERO_TO_ONE) with
+    target_compile_definitions(... GLM_FORCE_DEPTH_ZERO_TO_ONE).
+    The old line made CMake configure fail.
+  - Added src/window.cpp, src/device.cpp and src/swapchain.cpp to add_executable.
+  - Raised the GLFW requirement from 3.3 to 3.4 (GLFW_PLATFORM needs 3.4).
+
+src/sphere.cpp
+  - Renamed createSpehere -> createSphere so it matches sphere.hpp (was a linker error).
+  - Removed the duplicate #define GLM_FORCE_DEPTH_ZERO_TO_ONE (CMake sets it now).
+  - Removed the stray ';' after the function body.
+
+src/device.cpp
+  - Added the missing definitions: Device::create, Device::pickPhysicalDevice,
+    Device::createLogicalDevice, Device::destroy (link failed without them).
+
+headers/renderer.hpp
+  - uploadMesh() and createSwapchain() now have definitions.
+
+All files
+  - "../headers/x.hpp" includes changed to "x.hpp" (headers/ is already on the
+    include path through CMake).
+
+
+PART 2 - BUG FIXES
+------------------
+
+src/sphere.cpp - index generation
+  - Loops changed from i <= stacks / j <= sectors to i < stacks / j < sectors.
+    The old bounds read vertices past the end of the vertex array.
+
+src/swapchain.cpp - createImageViews
+  - imageViews_.resize(imageViews_.size()) did nothing; now uses images_.size().
+
+src/device.cpp - findQueueFamilies
+  - Prefers one queue family that supports both graphics and present.
+    Otherwise falls back to the first family for each.
+
+src/device.cpp - GPU selection
+  - Uses rateDevice() and picks the highest-scoring GPU. Integrated GPUs are
+    accepted now (the old checkDevice() only allowed discrete GPUs with
+    geometry shaders and didn't check queues or swapchain support).
+
+src/window.cpp - createWindow
+  - Checks if glfwCreateWindow returned nullptr; then calls glfwTerminate()
+    and throws an error.
+
+src/renderer.cpp - shutdown
+  - Waits for the GPU to finish, then destroys everything in reverse order of
+    creation (the logical device was never destroyed before).
+
+
+PART 3 - RESTRUCTURING
+----------------------
+
+Renderer
+  - Now holds a Device and a Swapchain object instead of keeping its own copies
+    of the physical device, logical device, queues and family indices.
+  - Removed Renderer::checkDevice (Device does this better).
+
+Swapchain
+  - create() takes (const Device&, VkSurfaceKHR, GLFWwindow*) instead of six
+    separate parameters.
+  - Removed the unused <cstring> include from swapchain.hpp.
+
+New file headers/window.hpp
+  - Declares createWindow(int width = 1280, int height = 720).
+
+src/main.cpp
+  - Sets a GLFW error callback, creates the window, runs the renderer loop and
+    cleans up. The renderer is destroyed before the window.
+  - Uploads a sphere mesh: createSphere(48, 24).
+
+
+PART 4 - NEW FUNCTIONALITY (drawing the sphere)
+-----------------------------------------------
+
+Device (src/device.cpp)
+  - Creates one queue per distinct queue family.
+  - Enables the VK_KHR_swapchain device extension.
+  - destroy() waits for the device to be idle before destroying it.
+
+Swapchain (src/swapchain.cpp)
+  - Finished Swapchain::create: picks image count (min + 1), format, present
+    mode, extent and composite alpha, and sets the queue sharing mode
+    (concurrent if graphics and present families differ).
+  - Added chooseCompositeAlpha() helper.
+  - Implemented createImageViews().
+  - create() destroys the old swapchain first, so it can be called on resize.
+
+Shaders (new folder content)
+  - shaders/sphere.vert: transforms vertices with an MVP matrix (push
+    constant) and passes the normal to the fragment shader.
+  - shaders/sphere.frag: simple diffuse lighting from one direction plus a
+    small ambient term.
+  - CMakeLists.txt compiles them with glslc into build/shaders/*.spv and
+    passes that folder to the code as SHADER_DIR.
+
+Renderer (src/renderer.cpp, headers/renderer.hpp)
+  - Validation layer (VK_LAYER_KHRONOS_validation) enabled automatically in
+    non-release builds when it is installed.
+  - createDepthResources: depth image, memory and view (picks a supported
+    depth format).
+  - createRenderPass: color + depth attachments, cleared every frame.
+  - createPipeline: loads SPIR-V shaders, vertex layout matching Vertex
+    {position, normal}, depth test on, back-face culling (counter-clockwise
+    front faces), dynamic viewport/scissor, push constant range.
+  - createFramebuffers: one per swapchain image.
+  - createCommandObjects: command pool + one command buffer per frame in flight.
+  - createSyncObjects: per-frame semaphore and fence, plus one
+    "render finished" semaphore per swapchain image.
+  - uploadMesh: creates vertex and index buffers (CPU-writable memory) and
+    copies the mesh into them. Can be called again to replace the mesh.
+  - findMemoryType / createBuffer helpers.
+  - recordCommandBuffer: clears the screen, binds pipeline and buffers, sets
+    camera (perspective, camera at z = 6, Vulkan Y-flip) and model rotation
+    around Y, then draws the sphere.
+  - drawFrame: 2 frames in flight; wait fence -> acquire image -> record ->
+    submit -> present.
+  - Window resize: swapchain, depth buffer and framebuffers are rebuilt when
+    Vulkan reports OUT_OF_DATE/SUBOPTIMAL or when the window size changes
+    (needed on Wayland, which doesn't report OUT_OF_DATE).
+  - Minimized window: no drawing while the framebuffer is 0x0.
+  - shutdown: frees mesh buffers, sync objects, command pool, pipeline,
+    swapchain resources, render pass, device, surface and instance.
+
+
+PART 5 - SCENE: BALL ON A PILLAR + TWO PILLARS
+----------------------------------------------
+
+New files headers/box.hpp, src/box.cpp
+  - createBox(width, height, depth): box mesh standing on y = 0 (origin at the
+    center of its bottom face), flat normals per face, counter-clockwise
+    triangles seen from outside. Used for the pillars.
+  - src/box.cpp added to CMakeLists.txt.
+
+Renderer - several objects instead of one mesh
+  - uploadMesh() now returns a mesh id and can be called many times.
+  - New addObject(meshId, model matrix, color): one thing to draw. Several
+    objects can share one mesh (both pillars use the same box).
+  - recordCommandBuffer draws every object with its own matrix and color.
+  - Camera: at (0, 4, 10), looking at (0, 2, 0), so both pillars are visible.
+  - The sphere no longer spins.
+  - destroyMeshBuffers() replaced by destroyMeshes() (frees all meshes).
+
+Shaders
+  - Push constants are now { mat4 mvp; vec4 color; mat3 normalMatrix }
+    = 128 bytes (the size every GPU supports).
+  - Color comes from the object instead of being hard-coded in the shader.
+  - Normal matrix = inverse-transpose of the model matrix, so lighting stays
+    correct for scaled objects.
+
+src/main.cpp - the scene
+  - Two grey pillars (0.6 x 3.0 x 0.6) at x = -3 and x = +3.
+  - White ball (radius 0.5) lying on top of the first pillar.
+  - Sizes are named constants at the top of the scene setup
+    (pillarWidth, pillarHeight, pillarDistance, ballRadius), so the bridge
+    can later be placed between the pillar tops at y = pillarHeight.
+
+
+PART 6 - WIDER PILLARS, SMALLER CHECKERED BALL
+----------------------------------------------
+
+src/main.cpp
+  - pillarWidth 0.6 -> 1.2, ballRadius 0.5 -> 0.3.
+  - Ball is green/white checkered: ballGreen, ballWhite, ballSquares = 4
+    (4 rows of squares, 8 around).
+
+Vertex (headers/sphere.hpp)
+  - New field glm::vec2 uv (texture coordinates 0..1). Also needed later for
+    textures.
+  - createSphere: u goes around the sphere, v from top to bottom.
+  - createBox: each face gets UVs 0..1.
+
+Renderer
+  - addObject(meshId, model, color, checkerColor = 0, checkerSquares = 0):
+    checkerSquares > 0 paints a checker pattern of color and checkerColor.
+    Old calls with 3 arguments still work (solid color).
+  - Pipeline has a 3rd vertex attribute (uv, location 2).
+  - Push constants are still 128 bytes: the checker data uses spare parts
+    (color.a = number of squares, normal matrix .w = checker color).
+
+Shaders
+  - sphere.vert passes UV and checker data to the fragment shader.
+  - sphere.frag picks color or checkerColor per square:
+    floor(u * squares * 2) + floor(v * squares), even/odd.
+
+
+TESTED
+------
+  - Builds with -Wall -Wextra and no warnings.
+  - Runs with the validation layer active and no validation errors.
+  - Captured frame shows two wide grey pillars on a black background with a
+    small green/white checkered ball lying on top of the left pillar.
+  - Not tested by hand: resizing and minimizing the window.
+
+
+NOTES
+-----
+  - Mesh buffers use CPU-writable memory. Fine for a small mesh; a bigger
+    scene would use a staging buffer and GPU-only memory.
+  - The pillars lean slightly in the picture: that is normal perspective,
+    because the camera looks down at them a little.

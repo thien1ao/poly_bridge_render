@@ -3,6 +3,12 @@ my_engine: \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crti.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o \
   CMakeFiles/my_engine.dir/src/main.cpp.o \
+  CMakeFiles/my_engine.dir/src/window.cpp.o \
+  CMakeFiles/my_engine.dir/src/device.cpp.o \
+  CMakeFiles/my_engine.dir/src/swapchain.cpp.o \
+  CMakeFiles/my_engine.dir/src/sphere.cpp.o \
+  CMakeFiles/my_engine.dir/src/box.cpp.o \
+  CMakeFiles/my_engine.dir/src/renderer.cpp.o \
   /usr/local/lib/libglfw3.a \
   /usr/local/lib/libvulkan.so \
   /usr/lib/librt.a \
@@ -46,6 +52,18 @@ my_engine: \
 /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o:
 
 CMakeFiles/my_engine.dir/src/main.cpp.o:
+
+CMakeFiles/my_engine.dir/src/window.cpp.o:
+
+CMakeFiles/my_engine.dir/src/device.cpp.o:
+
+CMakeFiles/my_engine.dir/src/swapchain.cpp.o:
+
+CMakeFiles/my_engine.dir/src/sphere.cpp.o:
+
+CMakeFiles/my_engine.dir/src/box.cpp.o:
+
+CMakeFiles/my_engine.dir/src/renderer.cpp.o:
 
 /usr/local/lib/libglfw3.a:
 

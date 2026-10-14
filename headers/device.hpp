@@ -25,6 +25,9 @@ public:
     void create(VkInstance instance, VkSurfaceKHR surface);
     void destroy();
 
+    // getter functions for private variables
+    // not accessable outside the class
+
     VkPhysicalDevice physical() const { return physical_; }
     VkDevice         logical()  const { return device_; }
     VkQueue          graphicsQueue() const { return graphicsQueue_; }

@@ -11,28 +11,8 @@ CMakeFiles/my_engine.dir/src/main.cpp.o: \
  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
  /usr/include/bits/time64.h /usr/include/bits/wchar.h \
  /usr/include/bits/stdint-intn.h /usr/include/bits/stdint-uintn.h \
- /usr/include/bits/stdint-least.h /usr/local/include/vulkan/vulkan.h \
- /usr/local/include/vulkan/vk_platform.h \
- /usr/local/include/vulkan/vulkan_core.h \
- /usr/local/include/vk_video/vulkan_video_codec_h264std.h \
- /usr/local/include/vk_video/vulkan_video_codecs_common.h \
- /usr/local/include/vk_video/vulkan_video_codec_h264std_encode.h \
- /usr/local/include/vk_video/vulkan_video_codec_h264std.h \
- /usr/local/include/vk_video/vulkan_video_codec_h265std.h \
- /usr/local/include/vk_video/vulkan_video_codec_h265std_encode.h \
- /usr/local/include/vk_video/vulkan_video_codec_h265std.h \
- /usr/local/include/vk_video/vulkan_video_codec_h264std_decode.h \
- /usr/local/include/vk_video/vulkan_video_codec_h265std_decode.h \
- /usr/local/include/vk_video/vulkan_video_codec_av1std.h \
- /usr/local/include/vk_video/vulkan_video_codec_av1std_decode.h \
- /usr/local/include/vk_video/vulkan_video_codec_av1std.h \
- /usr/local/include/vk_video/vulkan_video_codec_av1std_encode.h \
- /usr/local/include/vk_video/vulkan_video_codec_vp9std.h \
- /usr/local/include/vk_video/vulkan_video_codec_vp9std_decode.h \
- /usr/local/include/vk_video/vulkan_video_codec_vp9std.h \
- /usr/include/GL/gl.h /usr/include/GL/glext.h \
- /usr/include/KHR/khrplatform.h \
- /home/thienlao/development/vulkan_development/src/../headers/renderer.hpp \
+ /usr/include/bits/stdint-least.h \
+ /home/thienlao/development/vulkan_development/src/../headers/box.hpp \
  /home/thienlao/development/vulkan_development/src/../headers/sphere.hpp \
  /usr/local/include/glm/glm.hpp /usr/local/include/glm/detail/_fixes.hpp \
  /usr/include/c++/16/cmath /usr/include/c++/16/bits/requires_hosted.h \
@@ -276,6 +256,45 @@ CMakeFiles/my_engine.dir/src/main.cpp.o: \
  /usr/local/include/glm/detail/type_half.inl \
  /usr/local/include/glm/integer.hpp \
  /usr/local/include/glm/detail/func_integer.inl \
+ /home/thienlao/development/vulkan_development/src/../headers/renderer.hpp \
+ /usr/local/include/vulkan/vulkan.h \
+ /usr/local/include/vulkan/vk_platform.h \
+ /usr/local/include/vulkan/vulkan_core.h \
+ /usr/local/include/vk_video/vulkan_video_codec_h264std.h \
+ /usr/local/include/vk_video/vulkan_video_codecs_common.h \
+ /usr/local/include/vk_video/vulkan_video_codec_h264std_encode.h \
+ /usr/local/include/vk_video/vulkan_video_codec_h264std.h \
+ /usr/local/include/vk_video/vulkan_video_codec_h265std.h \
+ /usr/local/include/vk_video/vulkan_video_codec_h265std_encode.h \
+ /usr/local/include/vk_video/vulkan_video_codec_h265std.h \
+ /usr/local/include/vk_video/vulkan_video_codec_h264std_decode.h \
+ /usr/local/include/vk_video/vulkan_video_codec_h265std_decode.h \
+ /usr/local/include/vk_video/vulkan_video_codec_av1std.h \
+ /usr/local/include/vk_video/vulkan_video_codec_av1std_decode.h \
+ /usr/local/include/vk_video/vulkan_video_codec_av1std.h \
+ /usr/local/include/vk_video/vulkan_video_codec_av1std_encode.h \
+ /usr/local/include/vk_video/vulkan_video_codec_vp9std.h \
+ /usr/local/include/vk_video/vulkan_video_codec_vp9std_decode.h \
+ /usr/local/include/vk_video/vulkan_video_codec_vp9std.h \
+ /home/thienlao/development/vulkan_development/src/../headers/device.hpp \
+ /usr/include/c++/16/optional /usr/include/c++/16/exception \
+ /usr/include/c++/16/bits/exception_ptr.h \
+ /usr/include/c++/16/bits/cxxabi_init_exception.h \
+ /usr/include/c++/16/bits/nested_exception.h \
+ /home/thienlao/development/vulkan_development/src/../headers/swapchain.hpp \
+ /home/thienlao/development/vulkan_development/src/../headers/window.hpp \
+ /usr/local/include/glm/gtc/matrix_transform.hpp \
+ /usr/local/include/glm/ext/matrix_projection.hpp \
+ /usr/local/include/glm/gtc/constants.hpp \
+ /usr/local/include/glm/ext/scalar_constants.hpp \
+ /usr/local/include/glm/ext/scalar_constants.inl \
+ /usr/local/include/glm/gtc/constants.inl \
+ /usr/local/include/glm/ext/matrix_projection.inl \
+ /usr/local/include/glm/ext/matrix_clip_space.hpp \
+ /usr/local/include/glm/ext/matrix_clip_space.inl \
+ /usr/local/include/glm/ext/matrix_transform.hpp \
+ /usr/local/include/glm/ext/matrix_transform.inl \
+ /usr/local/include/glm/gtc/matrix_transform.inl \
  /usr/include/c++/16/iostream /usr/include/c++/16/ostream \
  /usr/include/c++/16/bits/ostream.h /usr/include/c++/16/ios \
  /usr/include/c++/16/iosfwd /usr/include/c++/16/bits/stringfwd.h \
@@ -284,11 +303,7 @@ CMakeFiles/my_engine.dir/src/main.cpp.o: \
  /usr/lib/gcc/x86_64-pc-linux-gnu/16/include/stdarg.h \
  /usr/include/bits/types/wint_t.h /usr/include/bits/types/mbstate_t.h \
  /usr/include/bits/types/__mbstate_t.h /usr/include/bits/types/__FILE.h \
- /usr/include/bits/types/FILE.h /usr/include/c++/16/exception \
- /usr/include/c++/16/bits/exception_ptr.h \
- /usr/include/c++/16/bits/cxxabi_init_exception.h \
- /usr/include/c++/16/bits/nested_exception.h \
- /usr/include/c++/16/bits/char_traits.h \
+ /usr/include/bits/types/FILE.h /usr/include/c++/16/bits/char_traits.h \
  /usr/include/c++/16/bits/localefwd.h \
  /usr/include/c++/16/x86_64-pc-linux-gnu/bits/c++locale.h \
  /usr/include/c++/16/clocale /usr/include/locale.h \

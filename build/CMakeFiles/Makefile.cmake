@@ -62,4 +62,5 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/my_engine.dir/DependInfo.cmake"
+  "CMakeFiles/shaders.dir/DependInfo.cmake"
   )

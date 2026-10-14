@@ -8,6 +8,7 @@
 struct Vertex {
     glm::vec3 position;
     glm::vec3 normal;
+    glm::vec2 uv; // texture coordinates 0..1, used for patterns like the checker ball
 };
 
 struct Mesh {

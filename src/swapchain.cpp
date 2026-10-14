@@ -1,4 +1,5 @@
 #include "../headers/swapchain.hpp"
+#include "../headers/device.hpp"
 #include "../headers/vk_check.hpp"
 
 #define GLFW_INCLUDE_NONE
@@ -7,7 +8,6 @@
 #include <algorithm>
 #include <limits>
 
-// namespace for Swapchain helper functions
 namespace {
 
 VkSurfaceFormatKHR chooseSurfaceFormat(
@@ -30,6 +30,20 @@ VkPresentModeKHR choosePresentMode(const std::vector<VkPresentModeKHR>& modes)
   return VK_PRESENT_MODE_FIFO_KHR;
 }
 
+VkCompositeAlphaFlagBitsKHR chooseCompositeAlpha(const VkSurfaceCapabilitiesKHR& caps)
+{
+  const VkCompositeAlphaFlagBitsKHR preferred[] = {
+    VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR,
+    VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR,
+    VK_COMPOSITE_ALPHA_PRE_MULTIPLIED_BIT_KHR,
+    VK_COMPOSITE_ALPHA_POST_MULTIPLIED_BIT_KHR,
+  };
+  for (auto a : preferred) {
+    if (caps.supportedCompositeAlpha & a) return a;
+  }
+  return VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR;
+}
+
 VkExtent2D chooseExtent(const VkSurfaceCapabilitiesKHR& caps, GLFWwindow* window)
 {
   if (caps.currentExtent.width != std::numeric_limits<uint32_t>::max()) {
@@ -47,18 +61,12 @@ VkExtent2D chooseExtent(const VkSurfaceCapabilitiesKHR& caps, GLFWwindow* window
 
 }
 
-// ^^^^^^
-// ||||||
-// bellow available functionality above functions to choose from this functionality
-void Swapchain::create(
-    VkPhysicalDevice physicalDevice,
-    VkDevice device,
-    VkSurfaceKHR surface,
-    GLFWwindow *window,
-    uint32_t graphicsFamily,
-    uint32_t presentFamily)
+void Swapchain::create(const Device& device, VkSurfaceKHR surface, GLFWwindow* window)
 {
-  device_ = device; // hdevice copy to nullhptr
+  destroy();
+
+  device_ = device.logical();
+  VkPhysicalDevice physicalDevice = device.physical();
 
   VkSurfaceCapabilitiesKHR caps;
 
@@ -79,19 +87,74 @@ void Swapchain::create(
   VkExtent2D extent                = chooseExtent(caps, window);
 
   // TODO
-  // pointer to a struct with swapchain  parameters
-  //
+  uint32_t imageCount = caps.minImageCount + 1;
+  if (caps.maxImageCount > 0 && imageCount > caps.maxImageCount) {
+    imageCount = caps.maxImageCount;
+  }
+
+  // Swapchain struct
+  VkSwapchainCreateInfoKHR info{};
+  info.sType            = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
+  info.surface          = surface;
+  info.minImageCount    = imageCount;
+  info.imageFormat      = surfaceFormat.format;
+  info.imageColorSpace  = surfaceFormat.colorSpace;
+  info.imageExtent      = extent;
+  info.imageArrayLayers = 1;
+  info.imageUsage       = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
+
+  const QueueFamilyIndices& families = device.queueFamilies();
+  uint32_t familyIndices[] = { *families.graphics, *families.present };
+
+  // images shared between two families need concurrent mode
+  if (families.graphics != families.present) {
+    info.imageSharingMode      = VK_SHARING_MODE_CONCURRENT;
+    info.queueFamilyIndexCount = 2;
+    info.pQueueFamilyIndices   = familyIndices;
+  } else {
+    info.imageSharingMode = VK_SHARING_MODE_EXCLUSIVE;
+  }
+
+  info.preTransform   = caps.currentTransform;
+  info.compositeAlpha = chooseCompositeAlpha(caps);
+  info.presentMode    = presentMode;
+  info.clipped        = VK_TRUE;
+  info.oldSwapchain   = VK_NULL_HANDLE;
+
+  checkVk(vkCreateSwapchainKHR(device_, &info, nullptr, &swapchain_), "vkCreateSwapchainKHR");
+
+  vkGetSwapchainImagesKHR(device_, swapchain_, &imageCount, nullptr);
+  images_.resize(imageCount);
+  vkGetSwapchainImagesKHR(device_, swapchain_, &imageCount, images_.data());
+
+  format_ = surfaceFormat.format;
+  extent_ = extent;
+
+  createImageViews();
 }
 
 void Swapchain::createImageViews()
 {
-  imageViews_.resize(imageViews_.size(), VK_NULL_HANDLE);
-  // TODO
+  imageViews_.resize(images_.size(), VK_NULL_HANDLE);
+
+  for (size_t i = 0; i < images_.size(); ++i) {
+    // ImageViews struct
+    VkImageViewCreateInfo info{};
+    info.sType    = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
+    info.image    = images_[i];
+    info.viewType = VK_IMAGE_VIEW_TYPE_2D;
+    info.format   = format_;
+    info.subresourceRange.aspectMask     = VK_IMAGE_ASPECT_COLOR_BIT;
+    info.subresourceRange.baseMipLevel   = 0;
+    info.subresourceRange.levelCount     = 1;
+    info.subresourceRange.baseArrayLayer = 0;
+    info.subresourceRange.layerCount     = 1;
+
+    checkVk(vkCreateImageView(device_, &info, nullptr, &imageViews_[i]), "vkCreateImageView");
+  }
 }
 
-// images are not accessable --> use ImageView
-// containts addittional metadata
- void Swapchain::destroy()
+void Swapchain::destroy()
 {
   if (device_ == VK_NULL_HANDLE) return;
 

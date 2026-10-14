@@ -2,10 +2,10 @@
 
 #include <vulkan/vulkan.h>
 
-#include <cstring>
 #include <vector>
 
 struct GLFWwindow;
+class Device;
 
 class Swapchain {
 public:
@@ -15,16 +15,11 @@ public:
   Swapchain(const Swapchain&) = delete;
   Swapchain& operator = (const Swapchain&) = delete;
 
-  void create(VkPhysicalDevice physicalDevice,
-              VkDevice device,
-              VkSurfaceKHR surface,
-              GLFWwindow* window,
-              uint32_t graphicsFamily,
-              uint32_t presentFamily);
+  void create(const Device& device, VkSurfaceKHR surface, GLFWwindow* window);
 
   void destroy();
 
-VkSwapchainKHR handle() const { return swapchain_; }
+  VkSwapchainKHR handle() const { return swapchain_; }
   VkFormat format() const { return format_; }
   VkExtent2D extent() const { return extent_; }
   const std::vector<VkImageView>& imageViews() const { return imageViews_; }

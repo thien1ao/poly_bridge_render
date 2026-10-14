@@ -1,8 +1,9 @@
 CMakeFiles/my_engine.dir/src/sphere.cpp.o: \
  /home/thienlao/development/vulkan_development/src/sphere.cpp \
- /usr/include/stdc-predef.h /usr/local/include/glm/glm.hpp \
- /usr/local/include/glm/detail/_fixes.hpp /usr/include/c++/16/cmath \
- /usr/include/c++/16/bits/requires_hosted.h \
+ /usr/include/stdc-predef.h \
+ /home/thienlao/development/vulkan_development/src/../headers/sphere.hpp \
+ /usr/local/include/glm/glm.hpp /usr/local/include/glm/detail/_fixes.hpp \
+ /usr/include/c++/16/cmath /usr/include/c++/16/bits/requires_hosted.h \
  /usr/include/c++/16/x86_64-pc-linux-gnu/bits/c++config.h \
  /usr/include/c++/16/x86_64-pc-linux-gnu/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -254,7 +255,6 @@ CMakeFiles/my_engine.dir/src/sphere.cpp.o: \
  /usr/local/include/glm/detail/type_half.inl \
  /usr/local/include/glm/integer.hpp \
  /usr/local/include/glm/detail/func_integer.inl \
- /home/thienlao/development/vulkan_development/src/../headers/sphere.hpp \
  /usr/include/c++/16/stdexcept /usr/include/c++/16/exception \
  /usr/include/c++/16/bits/exception_ptr.h \
  /usr/include/c++/16/bits/cxxabi_init_exception.h \
