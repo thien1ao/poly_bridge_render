@@ -25,16 +25,15 @@ int main()
       Renderer renderer;
       renderer.init(window);
 
-      // scene sizes (world units), the bridge will later go between the pillar tops
       const float pillarWidth    = 1.2f;
       const float pillarHeight   = 3.0f;
-      const float pillarDistance = 6.0f; // between pillar centers
+      const float pillarDistance = 6.0f;
       const float ballRadius     = 0.3f;
 
       const glm::vec3 pillarColor{ 0.6f, 0.6f, 0.6f };
       const glm::vec3 ballGreen  { 0.1f, 0.6f, 0.2f };
       const glm::vec3 ballWhite  { 1.0f, 1.0f, 1.0f };
-      const uint32_t  ballSquares = 4; // 4 rows of squares, 8 around
+      const uint32_t  ballSquares = 4;
 
       uint32_t sphereMesh = renderer.uploadMesh(createSphere(48, 24));
       uint32_t pillarMesh = renderer.uploadMesh(createBox(pillarWidth, pillarHeight, pillarWidth));

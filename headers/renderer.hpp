@@ -19,18 +19,20 @@ public:
   Renderer() = default;
   ~Renderer();
 
-  Renderer(const Renderer&) = delete; // disable copy constructor
-  Renderer& operator = (const Renderer&) = delete; // disable assiging constructor
+  Renderer(const Renderer&) = delete;
+  Renderer& operator = (const Renderer&) = delete;
 
   void init(GLFWwindow* window);
-  // uploads a mesh to the GPU, returns its id for addObject()
   uint32_t uploadMesh(const Mesh& mesh);
 
-  // one thing to draw: which mesh, where (model matrix) and in which color.
-  // checkerSquares > 0 paints a checker pattern of color and checkerColor:
-  // checkerSquares squares along v, twice as many along u (around a sphere)
-  void addObject(uint32_t meshId, const glm::mat4& model, const glm::vec3& color,
-                 const glm::vec3& checkerColor = glm::vec3(0.0f), uint32_t checkerSquares = 0);
+  void addObject(
+      uint32_t meshId,
+      const glm::mat4& model,
+      const glm::vec3& color,
+      const glm::vec3& checkerColor = glm::vec3(0.0f),
+      uint32_t checkerSquares = 0
+    );
+
   void drawFrame();
   void shutdown();
 
@@ -43,7 +45,7 @@ private:
   VkInstance instance_ = VK_NULL_HANDLE;
   VkSurfaceKHR surface_ = VK_NULL_HANDLE;
 
-  Device device_;       // GPU, logical device and queues
+  Device device_;       // GPU
   Swapchain swapchain_;
 
   // depth buffer so near triangles hide far ones

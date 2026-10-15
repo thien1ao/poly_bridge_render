@@ -17,19 +17,19 @@
 
 namespace {
 
-// must match the push_constant block in sphere.vert.
-// 128 bytes is full, so spare components are reused:
-//   color.a           = number of checker squares (0 = solid color)
-//   normalMatrix[c].w = checker color, one channel per column (r, g, b)
 struct PushConstants {
   glm::mat4 mvp;
   glm::vec4 color;
   glm::vec4 normalMatrix[3];
 };
+
+// static_assert (compilation time)
+// assert (runtime also ruins)
 static_assert(sizeof(PushConstants) == 128, "push constants must stay within 128 bytes");
 
 const char* const kValidationLayer = "VK_LAYER_KHRONOS_validation";
 
+// +
 bool validationLayerAvailable()
 {
   uint32_t count = 0;
@@ -43,32 +43,46 @@ bool validationLayerAvailable()
   return false;
 }
 
+// const std::string& path <-- file name
+// std::string& <-- no copy instead address
+// std::vector<char> output buffer (byte buffer)
+//
+// open file --> know the size (go the end) --> create byte buffer --> go at the beginning --> read file
 std::vector<char> readFile(const std::string& path)
 {
   // ate = start at the end, so tellg() gives the file size
+  // std::ios:;binary <-- open in binary mode
   std::ifstream file(path, std::ios::ate | std::ios::binary);
   if (!file) {
     throw std::runtime_error("failed to open " + path);
   }
 
   std::vector<char> buffer(static_cast<size_t>(file.tellg()));
-  file.seekg(0);
+  file.seekg(0); // to the beginning
+  // file.read() explicit casting
+  // without casting could also work
   file.read(buffer.data(), static_cast<std::streamsize>(buffer.size()));
   return buffer;
 }
 
+// byte code from readFile as address not a copy
 VkShaderModule createShaderModule(VkDevice device, const std::vector<char>& code)
 {
   VkShaderModuleCreateInfo info{};
   info.sType    = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
   info.codeSize = code.size();
-  info.pCode    = reinterpret_cast<const uint32_t*>(code.data());
+  info.pCode    = reinterpret_cast<const uint32_t*>(code.data()); // low lvl cast
+  // code.data of rype const char* pCode recieved const uint32_t*
+  // const char*
+  // b1 b2 b3 b4 b5 b6 b7 <-- char
+  // [       ] [        ] <-- uinnt32_t
 
   VkShaderModule module = VK_NULL_HANDLE;
   checkVk(vkCreateShaderModule(device, &info, nullptr, &module), "vkCreateShaderModule");
   return module;
 }
 
+// Z-Buffer +
 VkFormat findDepthFormat(VkPhysicalDevice physical)
 {
   const VkFormat candidates[] = {
@@ -125,6 +139,7 @@ void Renderer::init(GLFWwindow* window)
   }
 }
 
+// + (fix)
 void Renderer::createInstance()
 {
   if (!glfwVulkanSupported()) {
@@ -155,17 +170,10 @@ void Renderer::createInstance()
     createInfo.enabledExtensionCount = extensionCount;
     createInfo.ppEnabledExtensionNames = extensions;
 
-#ifndef NDEBUG
-    // validation layer prints API misuse to the console (debug builds only)
-    if (validationLayerAvailable()) {
-      createInfo.enabledLayerCount   = 1;
-      createInfo.ppEnabledLayerNames = &kValidationLayer;
-    }
-#endif
-
     checkVk(vkCreateInstance(&createInfo, nullptr, &instance_), "vkCreateInstance");
 }
 
+// Surface creation
 void Renderer::createSurface()
 {
   checkVk(glfwCreateWindowSurface(
@@ -183,6 +191,7 @@ void Renderer::createSwapchain()
   swapchain_.create(device_, surface_, window_);
 }
 
+// memory + device + swapchain + depthFormat --> ?
 void Renderer::createDepthResources()
 {
   VkDevice dev = device_.logical();
@@ -214,6 +223,7 @@ void Renderer::createDepthResources()
   alloc.memoryTypeIndex = findMemoryType(req.memoryTypeBits, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
 
   checkVk(vkAllocateMemory(dev, &alloc, nullptr, &depthMemory_), "vkAllocateMemory(depth)");
+
   vkBindImageMemory(dev, depthImage_, depthMemory_, 0);
 
   VkImageViewCreateInfo viewInfo{};

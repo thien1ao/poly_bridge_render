@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include <vector>
 
+// sectors: horizontal lines stacks: vertical lines
 Mesh createSphere(uint32_t sectors, uint32_t stacks) {
   if (sectors < 3 || stacks < 2) {
     throw std::invalid_argument("invalid sphere resolution");
@@ -30,6 +31,7 @@ Mesh createSphere(uint32_t sectors, uint32_t stacks) {
     }
   }
 
+  // insert(vector.end() <-- inserts at the end
   const uint32_t rowSize = sectors + 1;
 
   for (uint32_t i = 0; i < stacks; ++i) {

@@ -10,6 +10,7 @@
 
 namespace {
 
+//
 VkSurfaceFormatKHR chooseSurfaceFormat(
     const std::vector<VkSurfaceFormatKHR>& formats)
 {
@@ -86,13 +87,11 @@ void Swapchain::create(const Device& device, VkSurfaceKHR surface, GLFWwindow* w
   VkPresentModeKHR presentMode     = choosePresentMode(modes);
   VkExtent2D extent                = chooseExtent(caps, window);
 
-  // TODO
   uint32_t imageCount = caps.minImageCount + 1;
   if (caps.maxImageCount > 0 && imageCount > caps.maxImageCount) {
     imageCount = caps.maxImageCount;
   }
 
-  // Swapchain struct
   VkSwapchainCreateInfoKHR info{};
   info.sType            = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
   info.surface          = surface;
@@ -106,7 +105,6 @@ void Swapchain::create(const Device& device, VkSurfaceKHR surface, GLFWwindow* w
   const QueueFamilyIndices& families = device.queueFamilies();
   uint32_t familyIndices[] = { *families.graphics, *families.present };
 
-  // images shared between two families need concurrent mode
   if (families.graphics != families.present) {
     info.imageSharingMode      = VK_SHARING_MODE_CONCURRENT;
     info.queueFamilyIndexCount = 2;
@@ -138,7 +136,6 @@ void Swapchain::createImageViews()
   imageViews_.resize(images_.size(), VK_NULL_HANDLE);
 
   for (size_t i = 0; i < images_.size(); ++i) {
-    // ImageViews struct
     VkImageViewCreateInfo info{};
     info.sType    = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
     info.image    = images_[i];
